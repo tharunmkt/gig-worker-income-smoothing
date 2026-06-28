@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics{% endblock %}
+
+{% block page_title %}Analytics Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- =========================
+     KPI CARDS
+========================= -->
+<div class="cards">
+
+    <div class="card-box">
+        <i class="bi bi-cash-stack"></i>
+        <h4>{{ total_income }}</h4>
+        <p>Total Income</p>
+    </div>
+
+    <div class="card-box">
+        <i class="bi bi-wallet2"></i>
+        <h4>{{ total_virtual }}</h4>
+        <p>Virtual Income</p>
+    </div>
+
+    <div class="card-box">
+        <i class="bi bi-shield-lock"></i>
+        <h4>{{ total_buffer }}</h4>
+        <p>Total Buffer</p>
+    </div>
+
+    <div class="card-box">
+        <i class="bi bi-bar-chart"></i>
+        <h4>{{ platform_names|length }}</h4>
+        <p>Platforms</p>
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ALERTS SECTION
+========================= -->
+{% if alerts %}
+<div class="table-card mt-4">
+
+    <h4><i class="bi bi-exclamation-triangle"></i> Alerts</h4>
+
+    {% for alert in alerts %}
+        <div class="alert alert-{{ alert.type }} mt-2">
+            {{ alert.message }}
+        </div>
+    {% endfor %}
+
+</div>
+{% endif %}
+
+
+<!-- =========================
+     AI INSIGHTS SECTION
+========================= -->
+{% if ai_report %}
+<div class="table-card mt-4">
+
+    <h4><i class="bi bi-robot"></i> AI Insights</h4>
+
+    <p><b>Risk Level:</b> {{ ai_report.risk_level }}</p>
+    <p><b>Health Score:</b> {{ ai_report.health_score }}</p>
+    <p><b>Stability Index:</b> {{ ai_report.stability_index }}</p>
+
+    <ul>
+        {% for insight in ai_report.insights %}
+            <li>{{ insight }}</li>
+        {% endfor %}
+    </ul>
+
+</div>
+{% endif %}
+
+
+<!-- =========================
+     CHART SECTION
+========================= -->
+<div class="table-card mt-4">
+
+    <h4><i class="bi bi-graph-up"></i> Income Trend</h4>
+
+    <canvas id="incomeChart"></canvas>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('incomeChart');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ chart_labels | tojson }},
+        datasets: [{
+            label: 'Income',
+            data: {{ chart_values | tojson }},
+            borderWidth: 2,
+            fill: false,
+            tension: 0.3
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

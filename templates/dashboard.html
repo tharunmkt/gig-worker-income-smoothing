@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h3 class="logo">💰 GigPay</h3>
+
+        <a href="/">Dashboard</a>
+        <a href="/workers">Workers</a>
+        <a href="/income">Income</a>
+        <a href="/analytics">Analytics</a>
+        <a href="#">Settings</a>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <!-- Top Bar -->
+        <div class="topbar">
+
+            <h2>Gig Worker Income Smoothing Dashboard</h2>
+
+            <div class="profile">
+                Admin
+            </div>
+
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="cards">
+
+            <div class="card-box">
+                <i class="bi bi-cash-stack"></i>
+                <h3>₹{{ actual_income }}</h3>
+                <p>Today's Income</p>
+            </div>
+
+            <div class="card-box">
+                <i class="bi bi-wallet2"></i>
+                <h3>₹{{ total_buffer }}</h3>
+                <p>Buffer Balance</p>
+            </div>
+
+            <div class="card-box">
+                <i class="bi bi-bank"></i>
+                <h3>₹{{ virtual_salary }}</h3>
+                <p>Virtual Salary</p>
+            </div>
+
+            <div class="card-box">
+                <i class="bi bi-people-fill"></i>
+                <h3>{{ total_workers }}</h3>
+                <p>Total Workers</p>
+            </div>
+
+            <div class="card-box">
+                <i class="bi bi-bullseye"></i>
+                <h3>₹{{ avg_target|round|int }}</h3>
+                <p>Average Target Income</p>
+            </div>
+
+            <div class="card-box">
+                <i class="bi bi-heart-pulse-fill"></i>
+                <h3>{{ health_score }}/100</h3>
+                <p>Financial Health</p>
+            </div>
+
+        </div>
+
+        <!-- Recent Records -->
+        <div class="table-card">
+
+            <h4>Project Overview</h4>
+
+            <table class="table table-bordered table-striped">
+
+                <thead>
+
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Total Workers</td>
+                        <td>{{ total_workers }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Today's Actual Income</td>
+                        <td>₹{{ actual_income }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Today's Virtual Salary</td>
+                        <td>₹{{ virtual_salary }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Buffer Balance</td>
+                        <td>₹{{ total_buffer }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Average Target Income</td>
+                        <td>₹{{ avg_target|round|int }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Average Financial Health</td>
+                        <td>{{ health_score }}/100</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

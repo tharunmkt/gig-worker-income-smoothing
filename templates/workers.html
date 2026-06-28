@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Workers{% endblock %}
+
+{% block page_title %}Workers Management{% endblock %}
+
+{% block content %}
+
+<!-- =========================
+     ADD WORKER BUTTON
+========================= -->
+<div class="table-card">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h4><i class="bi bi-people"></i> All Workers</h4>
+
+        <a href="/add_worker" class="btn btn-primary">
+            + Add Worker
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     WORKERS TABLE
+========================= -->
+<div class="table-card mt-3">
+
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Platform</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for w in workers %}
+            <tr>
+                <td>{{ w[0] }}</td>
+                <td>{{ w[1] }}</td>
+                <td>{{ w[2] }}</td>
+                <td>{{ w[3] }}</td>
+                <td>
+                    <span class="badge bg-primary">
+                        {{ w[4] }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}
